@@ -1,0 +1,3 @@
+see if you can make some relation like 
+f(n) = f(n-1) + something!
+ 
