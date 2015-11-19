@@ -1,18 +1,37 @@
 # https://www.hackerrank.com/challenges/candies
-# TODO
+
 def minCandies(arr, size)
-  dp_candies = []
-  dp_candies[0] = 1
-  for i in 1..size-1
-    dp_candies[i] = 
-    if (arr[i] > arr[i-1])
-      dp_candies[i-1] + 1
-    else
-      ((i + 1 != size) && (arr[i+1] == 1)) ? 2 : 1
+
+  dp_candies = [1] * size
+  left  = 0
+  right = 0
+
+  while left < size
+    while(((right+1) < size) && (arr[right] > arr[right+1]))
+      right += 1
     end
+
+    count = right - left + 1
+
+    if((left-1) >= 0)
+
+      if ((count <= dp_candies[left-1]) && (arr[left] > arr[left-1]))
+        dp_candies[left] = dp_candies[left-1] + 1
+        left  += 1
+        count -= 1
+      end
+    end
+
+    while left <= right
+      dp_candies[left] = count
+      count -= 1
+      left += 1
+    end
+
+    right = left
   end
-  
-  dp_candies.inject(0) { |mem, var| mem + var }
+
+  dp_candies.inject(0){|input, ele| input + ele}
 end
 
 
